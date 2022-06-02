@@ -2,15 +2,15 @@ void motorControl(byte in1, byte in2, byte direct, int SPEED)
 {
   switch (direct) 
   {
-    case 0: //dừng
+    case 0:
       digitalWrite(in1,LOW);
       digitalWrite(in2,LOW);
       break;
-    case 1:// tiến
+    case 1:
       analogWrite(in1,SPEED);
       digitalWrite(in2,LOW);
       break;    
-    case 2: // lùi
+    case 2:
       digitalWrite(in1,LOW);
       analogWrite(in2,SPEED);
       break;

@@ -3,14 +3,17 @@
 #define inL1 5
 #define inL2 6
 
-#define trig 3
-#define echo 2
+const int SonarEcho[3] = {2, 7, 11};
+const int SonarTrig[3] = {3, 8, 12};
 
-#include "sonar.h"
+int ir1, ir2, ir3, ir4, ir5;
+double distance[3];
+
+#include "Sonar.h"
+#include "Sensor.h"
 #include "MotorControl.h"
 #include "LineTracking.h"
-
-int prev_distance = 400;
+#include "MazeSolve.h"
 
 void setup()
 {
@@ -19,28 +22,33 @@ void setup()
   pinMode(inL2, OUTPUT); 
   pinMode(inR1, OUTPUT);
   pinMode(inR2, OUTPUT);
-  pinMode(trig, OUTPUT);
-  pinMode(echo, INPUT);
+
+  for(int i=0; i<3; i++)
+  {
+        pinMode(SonarTrig[i], OUTPUT);
+        pinMode(SonarEcho[i], INPUT);
+  }
 }
 
 int checkMode()
-{
-  int ir1 = c(analogRead(A0));
-  int ir2 = c(analogRead(A1));
-  int ir3 = c(analogRead(A2));
-  int ir4 = c(analogRead(A3));
-  int ir5 = c(analogRead(A4));  
+{ 
   int ir = ir1 + ir2 + ir3 + ir4 + ir5;
-  if(ir) return 1;
-  else return 0;
+  if(checkBarrier()) return 0;
+  else 
+  {
+     if(ir) return 1;
+     else return 2;
+  }
 }
 
 void MotorRunning()
 {
   int mode = checkMode();
-  if(mode)
+  if(mode == 0)
+    stopMotor();
+  else if(mode == 1)
     followLine();
-  else
+  else 
     mazeSolve();
 } 
 

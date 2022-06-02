@@ -2,25 +2,32 @@
 
 SimpleKalmanFilter Sonar(10, 10, 5);
 
-int objectDistance()
+void getDistance()
 {
-  unsigned long duration;
-  double distance;
-  while(true)
+  for(int i=0; i<3; i++)
   {
-      /* phát xung từ chân trig */
-      digitalWrite(trig, LOW);//tắt chân trig
-      delayMicroseconds(2);
+    unsigned long duration;
+    double d;
+    while(true)
+    {
+        digitalWrite(SonarTrig[i], LOW);
+        delayMicroseconds(2);
+        digitalWrite(SonarTrig[i], HIGH);
+        delayMicroseconds(10);
+        digitalWrite(SonarTrig[i], LOW);
       
-      digitalWrite(trig, HIGH);// phát xung từ chân trig
-      delayMicroseconds(10);// xung có độ dài 5 microSeconds
-    
-      digitalWrite(trig, LOW);//tắt chân trig
-    
-      duration = pulseIn(echo, HIGH, 10000);//đo độ rộng xung HIGH ở chân echo
-      distance = double(duration/2/29.412);//tính khoảng cách đến vật
-      
-      if(distance) break;  
-   }
-   return distance;
+        duration = pulseIn(SonarEcho[i], HIGH, 10000);
+        d = double(duration/2/29.412);
+        
+        if(d) break;  // only takes true values (>0)
+     }
+     distance[i] = d;
+  }
+}
+
+int checkBarrier()
+{
+    if(distance[0] < 5 && distance[1] > 50 && distance[2] > 50)
+      return 1;
+    else return 0;
 }
