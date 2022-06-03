@@ -8,6 +8,7 @@ const int SonarTrig[3] = {3, 8, 12};
 
 int ir1, ir2, ir3, ir4, ir5;
 double distance[3];
+int prev_speed;
 
 #include "Sonar.h"
 #include "Sensor.h"
@@ -33,6 +34,7 @@ void setup()
 int checkMode()
 { 
   int ir = ir1 + ir2 + ir3 + ir4 + ir5;
+  
   if(checkBarrier()) return 0;
   else 
   {
@@ -43,13 +45,23 @@ int checkMode()
 
 void MotorRunning()
 {
-  int mode = checkMode();
-  if(mode == 0)
-    stopMotor();
-  else if(mode == 1)
-    followLine();
-  else 
-    mazeSolve();
+//  unsigned long time1, time2;
+//    time1 = millis();
+//  getDistance();
+//     time2 = millis();
+////   Serial.println(time2- time1);
+  readSensor();
+//
+//  int mode = checkMode();
+//  if(mode == 0)
+//    stopMotor();
+//  else if(mode == 1)
+//    followLine();
+//  else 
+//    mazeSolve();
+
+  followLine();
+
 } 
 
 void loop() 

@@ -1,6 +1,6 @@
 #include <SimpleKalmanFilter.h>
 
-SimpleKalmanFilter Sonar(10, 10, 5);
+//SimpleKalmanFilter Sonar(10, 10, 5);
 
 void getDistance()
 {
@@ -8,8 +8,8 @@ void getDistance()
   {
     unsigned long duration;
     double d;
-    while(true)
-    {
+//    while(true)
+//    {
         digitalWrite(SonarTrig[i], LOW);
         delayMicroseconds(2);
         digitalWrite(SonarTrig[i], HIGH);
@@ -17,11 +17,17 @@ void getDistance()
         digitalWrite(SonarTrig[i], LOW);
       
         duration = pulseIn(SonarEcho[i], HIGH, 10000);
+//        Serial.println(duration);
         d = double(duration/2/29.412);
         
-        if(d) break;  // only takes true values (>0)
-     }
+//        if(d) break;  // only takes true values (>0)
+//   
+//     }
      distance[i] = d;
+     Serial.print(i);
+     Serial.print(":");
+     Serial.println(distance[i]);
+  
   }
 }
 

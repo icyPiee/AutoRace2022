@@ -32,12 +32,12 @@ void stopMotor()
 
 void turnL()
 {
-    motorControl(inL1, inL2, 1, 0);
+    motorControl(inL1, inL2, 2, 0);
     motorControl(inR1, inR2, 1, 100);
 }
 
 void turnR()
 {
     motorControl(inL1, inL2, 1, 100);
-    motorControl(inR1, inR2, 1, 0);
+    motorControl(inR1, inR2, 2, 0);
 }
