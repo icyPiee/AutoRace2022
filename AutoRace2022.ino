@@ -1,3 +1,4 @@
+
 #define inR1 9
 #define inR2 10
 #define inL1 5
@@ -7,7 +8,7 @@ const int SonarEcho[3] = {2, 7, 11};
 const int SonarTrig[3] = {3, 8, 12};
 
 int ir1, ir2, ir3, ir4, ir5;
-double distance[3];
+int distance[3];
 int prev_speed;
 
 #include "Sonar.h"
@@ -45,22 +46,24 @@ int checkMode()
 
 void MotorRunning()
 {
-//  unsigned long time1, time2;
-//    time1 = millis();
-//  getDistance();
-//     time2 = millis();
-////   Serial.println(time2- time1);
+
+  getDistance();    
+
   readSensor();
-//
-//  int mode = checkMode();
-//  if(mode == 0)
-//    stopMotor();
-//  else if(mode == 1)
-//    followLine();
-//  else 
+
+  unsigned long time_start;
+  if(checkBarrier())
+  {
+    stopMotor();
+    time_start = millis();
+  }
+  else
+  {
+    followLine(time_start);
+  }
+
 //    mazeSolve();
 
-  followLine();
 
 } 
 

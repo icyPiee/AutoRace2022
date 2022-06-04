@@ -21,9 +21,13 @@ void motorControl(byte in1, byte in2, byte direct, int SPEED)
 void runFoward()
 {
   motorControl(inL1, inL2, 1, 100);
-  motorControl(inR1, inR2, 1, 100);
+  motorControl(inR1, inR2, 1, 87);
 }
 
+void lui(){
+    motorControl(inL1, inL2, 2, 100);
+    motorControl(inR1, inR2, 2, 100);
+}
 void stopMotor()
 {
   motorControl(inL1, inL2, 0, 0);

@@ -24,16 +24,16 @@ void getDistance()
 //   
 //     }
      distance[i] = d;
-     Serial.print(i);
-     Serial.print(":");
-     Serial.println(distance[i]);
+//     Serial.print(i);
+//     Serial.print(":");
+//     Serial.println(distance[i]);
   
   }
 }
 
 int checkBarrier()
 {
-    if(distance[0] < 5 && distance[1] > 50 && distance[2] > 50)
-      return 1;
+    if(distance[0] < 7 && distance[0] > 0)
+      return 1;     
     else return 0;
 }
